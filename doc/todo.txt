@@ -1,0 +1,1 @@
+- make eval table dynamic (dependent of how many parties)

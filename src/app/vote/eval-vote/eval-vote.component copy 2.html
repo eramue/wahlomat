@@ -1,0 +1,21 @@
+<div>vorher {{dataSource[0].story.thema}}</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="AFD" >
+    <th mat-header-cell *matHeaderCellDef> AFD </th>
+    <td mat-cell *matCellDef="let element"> 5 </td>
+  </ng-container>
+  <ng-container matColumnDef="SPD" >
+    <th mat-header-cell *matHeaderCellDef> SPD </th>
+    <td mat-cell *matCellDef="let element"> 5 </td>
+  </ng-container>
+  <ng-container matColumnDef="CDU" >
+    <th mat-header-cell *matHeaderCellDef> CDU </th>
+    <td mat-cell *matCellDef="let element"> 5 </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: ['AFD', 'SPD', 'CDU'];">
+  </tr>
+</table>
+<div>nachher</div>

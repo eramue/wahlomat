@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
@@ -43,6 +44,7 @@ import { EvalVoteComponent } from './vote/eval-vote/eval-vote.component';
     MatSelectModule,
     MatRadioModule,
     MatTabsModule,
+    MatTableModule,
     ReactiveFormsModule,
     MatExpansionModule,
     HttpClientModule,

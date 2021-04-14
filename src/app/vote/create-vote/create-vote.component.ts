@@ -1,9 +1,10 @@
 import { rendererTypeName } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StoryService } from 'src/app/story/story.service';
+import { VoteService } from 'src/app/vote/vote.service';
 import { Vote } from 'src/app/vote/vote.model';
 import { Story } from '../../story/story.model';
+import { StoryService } from 'src/app/story/story.service';
 
 @Component({
   selector: 'app-create-vote',
@@ -18,7 +19,7 @@ export class CreateVoteComponent implements OnInit {
   parties: string[];
   voteHeaderStyles: { 'font-style': string; 'font-weight': string; 'color': string; };
   maxVotes: number=5;
-  constructor(public storyService: StoryService,  private router: Router) {
+  constructor(public voteService: VoteService, public storyService: StoryService, private router: Router) {
     this.parties = this.storyService.getParties();
   }
 
@@ -75,8 +76,9 @@ export class CreateVoteComponent implements OnInit {
     return vote.values.reduce((sum, current) => sum + current, 0);
    }
 
-   submitVoting() {
+   submitVoting(newVote: Vote) {
     console.log("voting finished.");
+    this.voteService.addVote2(newVote);
     this.router.navigate(['/vote/eval']);
    }
 
