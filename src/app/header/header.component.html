@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <span><a routerLink="">Wahl-o-mat</a></span>
+  <span class="spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item  [matMenuTriggerFor]="createstory"  routerLink="/story">
+      <mat-icon>dialpad</mat-icon>
+      <span>Stories</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="createvote" routerLink="/vote">
+      <mat-icon>voicemail</mat-icon>
+      <span>Votes</span>
+    </button>
+  </mat-menu>
+  <mat-menu #createstory="matMenu">
+    <button mat-menu-item *ngIf="router.url!='/story'" disabled  routerLink="/story/create">
+      <mat-icon>notifications_off</mat-icon>
+      <span>Neue story</span>
+    </button>
+    <button mat-menu-item *ngIf="router.url=='/story'"  routerLink="/story/create">
+      <mat-icon>notifications_on</mat-icon>
+      <span>Neue story</span>
+    </button>
+  </mat-menu>
+  <mat-menu #createvote="matMenu">
+    <button mat-menu-item *ngIf="router.url!='/vote'" disabled  routerLink="/vote/create">
+      <mat-icon>notifications_off</mat-icon>
+      <span>Neue Auswertung</span>
+    </button>
+    <button mat-menu-item *ngIf="router.url=='/vote'"  routerLink="/vote/create">
+      <mat-icon>notifications_on</mat-icon>
+      <span>Neue Auswertung</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

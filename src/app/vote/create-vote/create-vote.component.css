@@ -1,0 +1,37 @@
+.vote-header-image {
+  background-image: url('/assets/img/80x67_Wahlomat_Neutral.png');
+  background-size: cover;
+}
+
+.vote-card {
+  max-width: 90%;
+  margin: 1rem auto;
+}
+
+.vote-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.vote-margin {
+  margin: 0 10px;
+}
+
+.vote-stretched-tabs {
+  max-width: 95%;
+}
+
+textarea, .tab-content {
+  width: 100%;
+}
+
+.vote-votes {
+   width:100%
+}
+
+.mff-values {
+  text-align: center;
+  margin-left: 8px;
+}

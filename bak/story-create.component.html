@@ -1,0 +1,51 @@
+<mat-card>
+  <form (submit)="onAddStory(postForm)" #postForm="ngForm">
+    <div>
+      <mat-label>Frage</mat-label>
+      <mat-form-field>
+        <textarea
+          matInput
+          rows="4"
+          name="question"
+          [ngModel]
+          required
+          #question="ngModel"
+        >
+        </textarea>
+        <mat-error *ngIf="question.invalid"
+          >Bitte eine Frage eingeben.</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-label>Antwort</mat-label>
+      <mat-tab-group>
+        <mat-tab label="SPD">
+          <mat-form-field>
+            <textarea
+              matInput
+              rows="4"
+              name="answers"
+              [ngModel]
+              required
+              #answers="ngModel"
+            >
+            </textarea>
+            <mat-error *ngIf="answers.invalid"
+              >Antwort der Party eingeben.</mat-error
+            >
+          </mat-form-field>
+        </mat-tab>
+        <mat-tab label="CDU">
+        <p>CDU</p>
+        </mat-tab>
+        <mat-tab label="Grüne">
+          <p>Grüne</p>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <button mat-raised-button color="primary" type="submit">
+      Story speichern
+    </button>
+  </form>
+</mat-card>

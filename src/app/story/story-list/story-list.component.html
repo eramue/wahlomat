@@ -1,0 +1,30 @@
+<mat-accordion *ngIf="stories.length>0">
+  <mat-expansion-panel *ngFor="let story of stories">
+    <mat-expansion-panel-header appearance="fill">
+      <div>{{story.thema}}</div>
+    </mat-expansion-panel-header>
+    <div>
+      <div>{{story.question}}</div>
+    </div>
+      <mat-tab-group >
+        <mat-tab *ngFor="let party of parties; let i = index" label={{party}}>
+          <mat-form-field appearance="fill">
+            <textarea
+              matInput
+              rows="4"
+              [name]="'answers'+i"
+              [ngModel]="story?.answers[i]"
+            >
+            </textarea>
+          </mat-form-field>
+        </mat-tab>
+      </mat-tab-group>
+    <mat-action-row *ngIf="router.url != '/'">
+      <a color="primary" [routerLink]="['/story/edit', story.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(story.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<section class="mat-typography" *ngIf="stories.length<=0">
+  <p class="no-post mat-body-1">Es gibt noch keine Szenarien</p>
+</section>

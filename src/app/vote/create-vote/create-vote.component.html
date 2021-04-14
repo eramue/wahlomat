@@ -1,0 +1,92 @@
+<p class="vote-center">
+  <mat-card class="vote-card">
+    <mat-card-header>
+      <div mat-card-avatar class="vote-header-image"></div>
+      <mat-card-title>Wahl-o-mat</mat-card-title>
+      <mat-card-subtitle>Vote for {{user}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-accordion *ngIf="votes.length > 0">
+        <mat-expansion-panel *ngFor="let vote of votes">
+          <mat-expansion-panel-header appearance="fill">
+           <!-- <div class="font-weight-bold" [ngStyle]="voteHeaderStyles(vote)">{{ vote.story.thema }}</div>-->
+           <div class="font-weight-bold">{{ vote.story.thema }}</div>
+            <div *ngIf="getVotesSum(vote)==0">(-)</div>
+            <div *ngIf="getVotesSum(vote)>0 && getVotesSum(vote)<maxVotes">({{getVotesSum(vote)}})</div>
+            <div *ngIf="getVotesSum(vote)==maxVotes">(v)</div>
+            <div *ngIf="getVotesSum(vote)>maxVotes">({{getVotesSum(vote)}} !!)</div>
+          </mat-expansion-panel-header>
+          <div>
+            <div>{{ vote.story.question }}</div>
+          </div>
+          <mat-tab-group
+            mat-stretch-tabs
+            class="vote-stretched-tabs mat-elevation-z4"
+          >
+            <mat-tab
+              *ngFor="let party of parties; let i = index"
+              label="{{ getLabel(i, party) }}"
+            >
+              <mat-form-field appearance="fill" class="tab-content">
+                <textarea
+                  readonly
+                  matInput
+                  rows="4"
+                  [name]="'answers' + i"
+                  [(ngModel)]="vote.story.answers[i]"
+                >
+                </textarea>
+              </mat-form-field>
+              <p>
+                <mat-slider
+                  min="0"
+                  max="3"
+                  step="1"
+                  thumbLabel
+                  tickInterval="1"
+                  [(ngModel)]="vote.values[i]"
+                ></mat-slider>
+              </p>
+            </mat-tab>
+          </mat-tab-group>
+          <mat-action-row>
+            <div class="vote-votes">
+              <mat-form-field class="mff-values"
+                *ngFor="let party of parties; let i = index"
+              >
+                <input
+                  matInput
+                  type="number"
+                  max="3"
+                  name="'value'+i"
+                  [ngModel]="vote.values[i]"
+                  required
+                  #thema="ngModel"
+                />
+                <mat-hint align="end">{{ getLabel(i, party) }}</mat-hint>
+              </mat-form-field>
+            </div>
+
+          </mat-action-row>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="toggleShowParty(vote.id)">
+              Zeige Partei
+            </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <section class="mat-typography" *ngIf="votes.length <= 0">
+        <p class="no-post mat-body-1">Es gibt noch keine Szenarien</p>
+      </section>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="accent" *ngIf="atleastOnePointPerVote()" (click)="submitVoting()">
+        Voting abschließen
+      </button>
+      <button mat-button color="accent" *ngIf="!atleastOnePointPerVote()" disabled (click)="submitVoting()">
+        Voting abschließen
+      </button>
+      <mat-hint *ngIf="!atleastOnePointPerVote()" align="end">(Es ist noch nicht alle Votes gemacht.)</mat-hint>
+    </mat-card-actions>
+  </mat-card>
+</p>
