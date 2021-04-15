@@ -7,6 +7,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { VoteService } from '../vote.service';
+import {StoryService } from '../../story/story.service';
 import { Vote } from '../vote.model';
 import { Story } from 'src/app/story/story.model';
 
@@ -26,38 +27,24 @@ import { Story } from 'src/app/story/story.model';
   ],
 })
 export class EvalVoteComponent implements OnInit {
-  columnsToDisplay: string[] =['SPD', 'CDU', 'Gruene', 'FDP', 'Linke', 'AFD'];
+  columnsToDisplay: string[];
+  columnsToDisplayExpanded: string[];
+  parties: string[];
+  partiesExpanded: string[];
   expandedElement: Vote | null;
-  dataSource: Vote[] = initVotes;
-  constructor(public voteService: VoteService) {}
+  votes: Vote[];
+  constructor(public voteService: VoteService, public storyService: StoryService) {}
 
   ngOnInit(): void {
-    //this.dataSource = this.voteService.getVotes();
+    this.votes = this.voteService.getVotes();
+    this.parties = this.storyService.getParties();
+    this.columnsToDisplay= ["Story"].concat(this.parties);
+    this.partiesExpanded = this.parties.map((c) => c + "Expanded");
+    this.columnsToDisplayExpanded = ["StoryExpanded"].concat(this.partiesExpanded);
     console.log('got votes.');
   }
-}
 
-const initVotes: Vote[] = [
-  {
-    id: '1',
-    user: 'Rainer',
-    story: {
-      id: '11',
-      thema: 'Klima',
-      question: 'menschengemacht?',
-      answers: ['a1', 'b1', 'c1', 'd1', 'e1', 'f1'],
-    },
-    values: [2, 0, 0, 0, 0, 0],
-  },
-  {
-    id: '2',
-    user: 'Rainer',
-    story: {
-      id: '12',
-      thema: 'Corona',
-      question: 'wie ist der Virus ausgebrochen?',
-      answers: ['a1', 'b1', 'c1', 'd1', 'e1', 'f1'],
-    },
-    values: [0, 0, 0, 2, 1, 0],
-  },
-];
+  getTotalValues(i:number) {
+    return this.votes.map(v =>v.values[i]).reduce((acc, value) => acc + value, 0);
+  }
+}

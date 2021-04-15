@@ -19,6 +19,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
 import { HeaderComponent } from './header/header.component';
 import { StoryCreateComponent } from './story/story-create/story-create.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -50,6 +53,9 @@ import { EvalVoteComponent } from './vote/eval-vote/eval-vote.component';
     HttpClientModule,
     MatMenuModule,
     MatCheckboxModule,
+    MatBadgeModule,
+    MatListModule,
+    MatDividerModule,
     AppRoutingModule,
   ],
   providers: [],

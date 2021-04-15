@@ -76,9 +76,9 @@ export class CreateVoteComponent implements OnInit {
     return vote.values.reduce((sum, current) => sum + current, 0);
    }
 
-   submitVoting(newVote: Vote) {
+   submitVoting() {
     console.log("voting finished.");
-    this.voteService.addVote2(newVote);
+  //  this.voteService.addVote2(newVote);
     this.router.navigate(['/vote/eval']);
    }
 

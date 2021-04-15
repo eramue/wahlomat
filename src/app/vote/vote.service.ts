@@ -9,9 +9,7 @@ export class VoteService {
   private votes: Vote[] = [];
   private votesUpdated = new Subject<Vote[]>();
 
-  constructor(private router: Router) {}
-
-  getVotes() {
+  constructor(private router: Router) {
     let newVote: Vote = {
       id: '1',
       user: 'Rainer',
@@ -36,6 +34,9 @@ export class VoteService {
       values: [0,0,0,2,1,0],
     };
     this.votes.push(newVote2);
+  }
+
+  getVotes() {
     return [...this.votes];
   }
 
