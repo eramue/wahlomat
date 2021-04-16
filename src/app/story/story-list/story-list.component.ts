@@ -23,12 +23,15 @@ export class StoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.parties=  this.storyService.getParties();
-    this.stories = this.storyService.getStories();
+
     this.subscription = this.storyService
       .getStoryUpdateListener()
       .subscribe((stories: Story[]) => {
         this.stories = stories;
       });
+
+    //after creating subscription, trigger it for initial load
+    this.storyService.getStories();
   }
 
   onDelete(id: string) {

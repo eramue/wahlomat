@@ -2,14 +2,14 @@ const express = require("express");
 const bodyParse = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
-const postRoutes = require("./routes/posts");
+const storyRoutes = require("./routes/story");
 mongoose
   .connect(
-    "mongodb+srv://mongodb_user:ZMNySECuepUuYe99@clustermean.zwnle.mongodb.net/test2?retryWrites=true&w=majority",
+    "mongodb+srv://mongodb_user:ZMNySECuepUuYe99@clustermean.zwnle.mongodb.net/wahlo?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
-    console.log("Connected successfully.");
+    console.log("Connected successfully to wahlo.");
   })
   .catch((error) => {
     console.log("Connection failed.", error);
@@ -31,6 +31,6 @@ app.use((req, resp, next) => {
   next();
 });
 
-app.use("/api/posts",postRoutes);
+app.use("/api",storyRoutes);
 
 module.exports = app;

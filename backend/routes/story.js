@@ -1,27 +1,41 @@
-const Post = require("../models/stories");
+const Story = require("../models/story");
 const express = require("express");
 const router = express.Router();
 
 
-router.post("", (req, resp, next) => {
-  const post = new Post({
-    title: req.body.title,
-    content: req.body.content,
+router.post("/story", (req, resp, next) => {
+  const story = new Story({
+    subject: req.body.thema,
+    question: req.body.question,
+    answers: req.body.answers,
   });
 
-  post.save().then((result) => {
-    console.log("AFTER SAVE", post);
-    resp.status(201).json({ message: "success", postId: result._id });
+  story.save().then((result) => {
+    console.log("AFTER SAVE", story);
+    resp.status(201).json({ message: "success", storyId: result._id });
   });
 });
-router.delete("/:id", (req, resp, next) => {
-  Post.deleteOne({ _id: req.params.id }).then((result) => {
+
+router.get("/story", (req, resp, next) => {
+  Story.find().then((documents) => {
+    resp
+      .status(200)
+      .json({ message: "Sucessfully from Server.", stories: documents });
+  });
+});
+
+
+
+
+router.delete("/story/:id", (req, resp, next) => {
+  Story.deleteOne({ _id: req.params.id }).then((result) => {
     console.log(result);
     resp
       .status(200)
-      .json({ message: "Successfully deleted post with id " + req.params.id });
+      .json({ message: "Successfully deleted story with id " + req.params.id });
   });
 });
+/**
 
 router.put("/:id", (req, resp, next) => {
   const post = new Post({
@@ -37,13 +51,7 @@ router.put("/:id", (req, resp, next) => {
   });
 });
 
-router.get("", (req, resp, next) => {
-  Post.find().then((documents) => {
-    resp
-      .status(200)
-      .json({ message: "Sucessfully from Server.", posts: documents });
-  });
-});
+
 
 router.get("/:id", (req, resp, next) => {
   Post.findById(req.params.id).then((post) => {
@@ -57,5 +65,5 @@ router.get("/:id", (req, resp, next) => {
 
   });
 });
-
+ */
 module.exports = router;
