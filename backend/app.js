@@ -3,6 +3,7 @@ const bodyParse = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 const storyRoutes = require("./routes/story");
+const voteRoutes = require("./routes/vote");
 mongoose
   .connect(
     "mongodb+srv://mongodb_user:ZMNySECuepUuYe99@clustermean.zwnle.mongodb.net/wahlo?retryWrites=true&w=majority",
@@ -31,6 +32,6 @@ app.use((req, resp, next) => {
   next();
 });
 
-app.use("/api",storyRoutes);
-
+app.use("/api/story",storyRoutes);
+app.use("/api/vote",voteRoutes);
 module.exports = app;

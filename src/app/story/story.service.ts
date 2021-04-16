@@ -1,7 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Story } from './story.model';
 
@@ -17,23 +17,27 @@ export class StoryService {
   }
 
   getStories() {
-   // return [...this.stories];
-    this.http.get<{message: String, stories: any[]}>('http://localhost:3001/api/story')
-    .pipe(map((storyData) => {
-      return storyData.stories.map((data) => {
-        return {
-          id:data._id,
-          thema: data.subject,
-          question: data.question,
-          answers: data.answers,
-        }
+    // return [...this.stories];
+    this.http
+      .get<{ message: String; stories: any[] }>(
+        'http://localhost:3001/api/story'
+      )
+      .pipe(
+        map((storyData) => {
+          return storyData.stories.map((data) => {
+            return {
+              id: data._id,
+              thema: data.subject,
+              question: data.question,
+              answers: data.answers,
+            };
+          });
+        })
+      )
+      .subscribe((transformedPost) => {
+        this.stories = transformedPost;
+        this.storiesUpdated.next([...this.stories]);
       });
-    }))
-    .subscribe((transformedPost) => {
-     this.stories= transformedPost;
-     this.storiesUpdated.next([...this.stories]);
-    });
-
   }
 
   getStory(id: String) {
@@ -74,10 +78,10 @@ export class StoryService {
 
   deletePost(id: string) {
     console.log('delete', id);
-    this.http.delete('http://localhost:3001/api/story/' +id).subscribe(() => {
-      console.log("deleted story with id=" + id);
-      this.stories = this.stories.filter(story => story.id !== id);
+    this.http.delete('http://localhost:3001/api/story/' + id).subscribe(() => {
+      console.log('deleted story with id=' + id);
+      this.stories = this.stories.filter((story) => story.id !== id);
       this.storiesUpdated.next([...this.stories]);
-    })
+    });
   }
 }
