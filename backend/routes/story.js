@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 
-router.post("/story", (req, resp, next) => {
+router.post("", (req, resp, next) => {
   const story = new Story({
     subject: req.body.thema,
     question: req.body.question,
@@ -16,7 +16,7 @@ router.post("/story", (req, resp, next) => {
   });
 });
 
-router.get("/story", (req, resp, next) => {
+router.get("", (req, resp, next) => {
   Story.find().then((documents) => {
     resp
       .status(200)
@@ -27,7 +27,7 @@ router.get("/story", (req, resp, next) => {
 
 
 
-router.delete("/story/:id", (req, resp, next) => {
+router.delete("/:id", (req, resp, next) => {
   Story.deleteOne({ _id: req.params.id }).then((result) => {
     console.log(result);
     resp
