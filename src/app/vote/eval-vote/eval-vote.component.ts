@@ -32,7 +32,15 @@ export class EvalVoteComponent implements OnInit {
   parties: string[];
   partiesExpanded: string[];
   expandedElement: Vote | null;
-  votes: Vote[];
+  votes: Vote[] = [];
+  totals: number[] = [];
+  /** maps the parties to a rank (in terms of total of their value votes).
+   * e.g. if parties[0] = SPD, then rank[0]=3 means, that SPD has rank 3
+   */
+   partyToRank: number[] = [];
+   /** maps rank to a party index of party array
+   */
+   rank: number[] = [];
   constructor(public voteService: VoteService, public storyService: StoryService) {}
 
   ngOnInit(): void {
@@ -41,10 +49,24 @@ export class EvalVoteComponent implements OnInit {
     this.columnsToDisplay= ["Story"].concat(this.parties);
     this.partiesExpanded = this.parties.map((c) => c + "Expanded");
     this.columnsToDisplayExpanded = ["StoryExpanded"].concat(this.partiesExpanded);
-    console.log('got votes.');
+    this.doVoteCalculation();
+    console.log('votes initialized.');
   }
 
   getTotalValues(i:number) {
-    return this.votes.map(v =>v.values[i]).reduce((acc, value) => acc + value, 0);
+    return this.totals[i];
   }
+  doVoteCalculation() {
+    let posValueMap= [];
+    for (let i = 0; i < this.parties.length; i++) {
+     this.totals[i] = this.votes.map(v =>v.values[i]).reduce((acc, value) => acc + value, 0);
+     posValueMap.push({id:i, total: this.totals[i] });
+    }
+    let sortedValues = posValueMap.sort((first, second) => 0 - (first.total > second.total ? 1 : -1));
+    for (let i = 0; i < this.parties.length; i++) {
+      this.partyToRank[sortedValues[i].id]=i+1;
+      this.rank[i]=sortedValues[i].id
+    }
+  }
+
 }
